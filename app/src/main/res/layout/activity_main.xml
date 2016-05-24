@@ -40,7 +40,7 @@
 
             <TextView
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="From"
+                android:text="@string/string_textView_from"
                 android:id="@+id/textView"
                 android:layout_column="0"
                 android:layout_gravity="center" />
@@ -79,10 +79,11 @@
 
             <TextView
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="To"
+                android:text="@string/string_textView_to"
                 android:id="@+id/textView2"
                 android:layout_column="0"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:singleLine="true" />
 
             <Space
                 android:layout_width="100px"
@@ -117,7 +118,7 @@
             android:layout_height="match_parent">
             <TextView
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Type"
+                android:text="@string/string_textView_type"
                 android:id="@+id/textView3"
                 android:layout_gravity="center"
                 android:layout_column="0" />
@@ -154,7 +155,7 @@
             android:layout_height="match_parent">
             <TextView
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Language"
+                android:text="@string/string_textView_lang"
                 android:id="@+id/textView4"
                 android:layout_gravity="center"
                 android:layout_column="0" />
