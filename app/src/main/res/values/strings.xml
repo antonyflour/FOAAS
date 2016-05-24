@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Foaas</string>
+    <string-array name="types">
+        <item>OFF</item>
+        <item>YOU</item>
+    </string-array>
+    <string-array name="langs">
+        <item>Italiano</item>
+        <item>English</item>
+    </string-array>
+</resources>
