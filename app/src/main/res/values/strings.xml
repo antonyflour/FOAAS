@@ -15,4 +15,6 @@
         <item>Italiano</item>
         <item>English</item>
     </string-array>
+
+    <string name="string_alert_button">One or more fields are empty</string>
 </resources>
