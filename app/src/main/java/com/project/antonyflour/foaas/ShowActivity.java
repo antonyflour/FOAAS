@@ -2,9 +2,13 @@ package com.project.antonyflour.foaas;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -37,6 +41,7 @@ public class ShowActivity extends AppCompatActivity {
 
     TextView textViewFuck;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +51,16 @@ public class ShowActivity extends AppCompatActivity {
         String type = getIntent().getStringExtra("type");
         String lang = getIntent().getStringExtra("lang");
         textViewFuck = (TextView) findViewById(R.id.textViewFuck);
-
+        textViewFuck.setVisibility(View.INVISIBLE);
         String[] strs = {from,to};
-        FuckAsyncTask fat = new FuckAsyncTask();
-        fat.execute(strs);
+        if(isOnline()) {
+            FuckAsyncTask fat = new FuckAsyncTask();
+            fat.execute(strs);
+        }
+        else{
+            textViewFuck.setText("No Internet Connection, Dickhead!");
+            textViewFuck.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -153,8 +164,23 @@ public class ShowActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
     class FuckAsyncTask extends AsyncTask<String,Void,String> {
 
+        private ProgressDialog dialog = new ProgressDialog(ShowActivity.this);
+
+
+        @Override
+        protected void onPreExecute() {
+            this.dialog.setMessage("Please wait");
+            this.dialog.show();
+        }
 
         protected String doInBackground(String... params) {
             JFOAAS j = new JFOAAS(params[0],params[1]);
@@ -165,12 +191,18 @@ public class ShowActivity extends AppCompatActivity {
 
         protected void onPostExecute(final String fuck){
 
+
             ShowActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     textViewFuck.setText(fuck);
+                    textViewFuck.setVisibility(View.VISIBLE);
                 }
             });
+
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
         }
     }
 }
