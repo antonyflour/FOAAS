@@ -10,6 +10,7 @@
     <string-array name="types">
         <item>OFF</item>
         <item>YOU</item>
+        <item>SHUTUP</item>
     </string-array>
     <string-array name="langs">
         <item>Italiano</item>
@@ -17,5 +18,5 @@
     </string-array>
 
     <string name="string_alert_button">Uno o più campi sono vuoti</string>
-
+    <string name="string_server_down">Il server è morto.</string>
 </resources>

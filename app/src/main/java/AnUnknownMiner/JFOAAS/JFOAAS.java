@@ -28,6 +28,7 @@ import java.net.MalformedURLException;
 
 public class JFOAAS {
 
+    private Language lang = Language.ENGLISH;
     private Fuck fuck = Fuck.OFF;
     private Output output = Output.STRING;
     private String url = "http://www.foaas.com";
@@ -121,6 +122,15 @@ public class JFOAAS {
     }
 
     /**
+     * @param lang - the language of the fuck
+     * @return The instance of this class
+     */
+    public JFOAAS withLanguage(Language lang) {
+        this.lang = lang;
+        return this;
+    }
+
+    /**
      * Used solely for Fuck.BALLMER
      * @param company - the company you will kill
      * @return The instance of this class
@@ -146,7 +156,7 @@ public class JFOAAS {
                 .replace(":from", from)
                 .replace(":company", company)
                 .replace(":reference", reference)
-                .replace(":tool", tool);
+                .replace(":tool", tool).concat("?i18n="+lang).replace(" ","%20");
     }
 
 

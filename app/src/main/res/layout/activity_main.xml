@@ -18,7 +18,8 @@
         android:text="FOAAS"
         android:id="@+id/textViewTitle"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="10" />
+        android:layout_weight="10"
+        android:focusable="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,7 +73,7 @@
             android:id="@+id/editTextFrom"
             android:layout_weight="4"
             android:layout_gravity="center_vertical"
-            android:onClick="clear" />
+            />
 
         <Space
             android:layout_width="0dp"
@@ -122,8 +123,7 @@
             android:ems="10"
             android:id="@+id/editTextTo"
             android:layout_weight="4"
-            android:layout_gravity="center_vertical"
-            android:onClick="clear" />
+            android:layout_gravity="center_vertical"/>
 
         <Space
             android:layout_width="0dp"

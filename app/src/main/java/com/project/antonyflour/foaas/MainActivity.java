@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +43,34 @@ public class MainActivity extends AppCompatActivity {
         editTextTo = (EditText) findViewById(R.id.editTextTo);
         spinnerType = (Spinner) findViewById(R.id.spinnerType);
         spinnerLang = (Spinner) findViewById(R.id.spinnerLang);
+
+        editTextFrom.setOnFocusChangeListener(
+                new View.OnFocusChangeListener()
+                {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus)
+                    {
+                        if (hasFocus==true)
+                        {
+                            clear(v);
+                        }
+                    }
+                }
+        );
+
+        editTextTo.setOnFocusChangeListener(
+                new View.OnFocusChangeListener()
+                {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus)
+                    {
+                        if (hasFocus==true)
+                        {
+                            clear(v);
+                        }
+                    }
+                }
+        );
 
         /*
             Insert material design button
@@ -89,25 +118,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that clear MainActivity's EditText when pressed
+     * Method that clear MainActivity's EditTexts when pressed
      * @param v
      */
     public void clear(View v){
         int id = v.getId();
-        switch (id){
-            case R.id.editTextFrom:
-                ((EditText)findViewById(id)).setText("");
-                break;
-            case R.id.editTextTo:
-                ((EditText)findViewById(id)).setText("");
-        }
+        ((EditText)v).setText("");
     }
 
     /**
      * Verify if the activity has got the storage permission
      * @param activity
      */
-    public static void verifyInternetPermissions(Activity activity) {
+    public void verifyInternetPermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.INTERNET);
 

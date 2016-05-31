@@ -29,6 +29,7 @@ import java.io.IOException;
 
 import AnUnknownMiner.JFOAAS.Fuck;
 import AnUnknownMiner.JFOAAS.JFOAAS;
+import AnUnknownMiner.JFOAAS.Language;
 
 public class ShowActivity extends AppCompatActivity {
 
@@ -50,9 +51,10 @@ public class ShowActivity extends AppCompatActivity {
         String to = getIntent().getStringExtra("to");
         String type = getIntent().getStringExtra("type");
         String lang = getIntent().getStringExtra("lang");
+
         textViewFuck = (TextView) findViewById(R.id.textViewFuck);
         textViewFuck.setVisibility(View.INVISIBLE);
-        String[] strs = {from,to};
+        String[] strs = {from, to, type, lang};
         if(isOnline()) {
             FuckAsyncTask fat = new FuckAsyncTask();
             fat.execute(strs);
@@ -164,6 +166,10 @@ public class ShowActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Check the Internet connection
+     * @return true if the system is online
+     */
     public boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -184,7 +190,30 @@ public class ShowActivity extends AppCompatActivity {
 
         protected String doInBackground(String... params) {
             JFOAAS j = new JFOAAS(params[0],params[1]);
-            String fuck = j.withFuck(Fuck.OFF).build();
+
+            //check the type of the fuck
+            switch(params[2]){
+                case "OFF":
+                    j.withFuck(Fuck.OFF);
+                    break;
+                case "YOU":
+                    j.withFuck(Fuck.YOU);
+                    break;
+                case "SHUTUP":
+                    j.withFuck(Fuck.SHUTUP);
+                    break;
+            }
+            //check the language
+            switch(params[3]){
+                case "Italiano":
+                    j.withLanguage(Language.ITALIAN);
+                    break;
+                case "English":
+                    j.withLanguage(Language.ENGLISH);
+                    break;
+            }
+
+            String fuck = j.build();
             return fuck;
         }
 
@@ -195,6 +224,9 @@ public class ShowActivity extends AppCompatActivity {
             ShowActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    if(fuck.isEmpty()) {
+                        textViewFuck.setText(R.string.string_server_down);
+                    }
                     textViewFuck.setText(fuck);
                     textViewFuck.setVisibility(View.VISIBLE);
                 }
